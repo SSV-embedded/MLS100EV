@@ -1,0 +1,185 @@
+[
+    {
+        "id": "1d7de58212c3ac99",
+        "type": "tab",
+        "label": "SSV/MLS CSV Data Logger",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "9180847537022c04",
+        "type": "file",
+        "z": "1d7de58212c3ac99",
+        "name": "",
+        "filename": "mls100ev_data.csv",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 650,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "25bd1c2addeeeb01",
+        "type": "serial in",
+        "z": "1d7de58212c3ac99",
+        "name": "Serial In MLS100EV",
+        "serial": "",
+        "x": 130,
+        "y": 160,
+        "wires": [
+            [
+                "73e169edac989332",
+                "fbe238c8149eb4c8"
+            ]
+        ]
+    },
+    {
+        "id": "fbe238c8149eb4c8",
+        "type": "function",
+        "z": "1d7de58212c3ac99",
+        "name": "trim",
+        "func": "if (msg.payload.trim() === \"\" || msg.payload.trim() === '\\u0000') {\n    return null; // Skip empty lines\n}\nmsg.payload = msg.payload.trim()\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 60,
+        "wires": [
+            [
+                "e4d5e584b047928d"
+            ]
+        ]
+    },
+    {
+        "id": "73e169edac989332",
+        "type": "function",
+        "z": "1d7de58212c3ac99",
+        "name": "x_rms",
+        "func": "// CSV-String annehmen (z. B. im Payload)\nlet csv = msg.payload;\n\n// String in ein Array aufsplitten (Komma als Trennzeichen)\nlet values = csv.split(',');\n\n// Überprüfen, ob genug Elemente vorhanden sind\nif (values.length >= 16) {\n    // Index: 1 (x_rms), 8 (y_rms), 15 (z_rms)\n    msg.payload = values[1];\n} else {\n    // Fehlerfall: Nicht genug Elemente\n    msg.payload = { error: \"CSV-String enthält weniger als 16 Werte.\" };\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 160,
+        "wires": [
+            [
+                "2612bf0809742b2d",
+                "dca2556865af7c14"
+            ]
+        ]
+    },
+    {
+        "id": "dca2556865af7c14",
+        "type": "ui_text",
+        "z": "1d7de58212c3ac99",
+        "group": "c1d2e3f4a5b6",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "MLS/100EV x_rms data value =  ",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 690,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "2612bf0809742b2d",
+        "type": "ui_chart",
+        "z": "1d7de58212c3ac99",
+        "name": "",
+        "group": "c1d2e3f4a5b6",
+        "order": 1,
+        "width": "0",
+        "height": "0",
+        "label": "x_rms",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 610,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e4d5e584b047928d",
+        "type": "debug",
+        "z": "1d7de58212c3ac99",
+        "name": "debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "c1d2e3f4a5b6",
+        "type": "ui_group",
+        "name": "MLS/100EV Machine Condition Data Understanding",
+        "tab": "d4e5f6a7b8c9",
+        "order": 1,
+        "disp": true,
+        "width": "24",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "d4e5f6a7b8c9",
+        "type": "ui_tab",
+        "name": "Dashboard",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
