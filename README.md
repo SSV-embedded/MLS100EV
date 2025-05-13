@@ -48,8 +48,8 @@ The following equipment is required to record data with the MLS/100EV:
 + **The power supply should be in immediate proximity to the device.**
 + **The power supply must provide a stable output voltage of 5 VDC.**
 + **Please pay attention that the power cord or other cables are not squeezed or damaged in any way when you set up the device.**
-+ **Discharge yourself electrostatic before you work with the device, e.g. by touching a heater of metal, to avoid damages.**
-+ **Stay grounded while working with the device to avoid damage through electrostatic discharge.**
++ **Discharge yourself electrostatically before working with the device, e.g. by touching a metal radiator, to avoid damages.**
++ **Stay grounded while working with the device, to avoid damage through electrostatic discharge.**
 
 # 3. PREPARATIONS
 
@@ -122,7 +122,7 @@ Now connect the MLS/100EV with the provided USB-C cable to the workstation. The 
 
 Windows recognizes the new device and installs an appropriate driver. This may take a moment.
 
-The MLS/100EV can then be addressed via a **virtual COM port** (serial interface). This virtual COM port is needed for the communication with Node-RED.
+The MLS/100EV can then be addressed via a **virtual COM port** (serial interface). This virtual COM port is needed for communication and data transfer.
 
 > :bulb: **TIP!**
 >
@@ -254,7 +254,7 @@ Record the data over a reasonable period of time. If you are monitoring a washin
 
 To stop the data acquisition, select the wire between the **trim node** and the **CSV node**, press the `Delete` key and then click the `Deploy` button.
 
-## 4.2 Data Analyzation
+## 4.2 Data Analysis
 
 To analyze the recorded machine data, we recommend using [Google Colab](https://colab.research.google.com/). This requires a Google account.
 
@@ -298,7 +298,88 @@ Below the code cells, you will now see a diagram of your recorded machine data.
 
 *Figure 17: Diagram of the recorded data*
 
-# 5. TECHNICAL DATA
+# 5. FIRMWARE UPDATE
+
+In the **[MLS/100EV GitHub repository](https://github.com/SSV-embedded/MLS100EV)** you can download firmware files (`*.bin`) that support different Mikroe click board™ sensor modules for various use cases.
+
+For the following description we will use the [`mls_blue_led_1.0.0.bin`](mls_blue_led_1.0.0.bin).
+
+> :information_source: **Please note:**
+>
+> The ex-factory firmware file of the MLS/100EV is called [`mls_imu_1.0.0.bin`](mls_imu_1.0.0.bin).
+
+## 5.1 Installing the Apache Newt Manager
+
+To load a new firmware into the MLS/100EV, the command line tool **Newt Manager** from Apache is needed. Here you can **[download Newt Manager for Windows](https://dlcdn.apache.org/mynewt/apache-mynewt-1.13.0/apache-mynewt-newtmgr-bin-windows-1.13.0.tgz)**.
+
+The downloaded archive contains an executable file called `newtmgr.exe`. Place it in a directory of your choice. 
+
+### 5.1.1 Adding a Serial Connection
+
+Open a command line interface, change to the directory with the `newtmgr.exe` and enter following command:
+
+```
+.\newtmgr conn add serial type=serial connstring="dev=COM4,baud=115200"
+```
+
+This setup will be stored at `C:\users\your_user_name\.newtmgr.cp.json`. This command therefore only needs to be executed once, unless the COM port of the MLS/100EV changes.
+
+> :information_source: **Please note:**
+>
+> The used COM port (COM4) in this command is only an example! You must enter the COM port connected to the MLS/100EV. The [chapter 3.4](#34-connecting-the-mls100ev-to-the-workstation) describes how to find the correct COM port.
+
+## 5.2 Opening the MLS/100EV
+
+> :warning: **ATTENTION!**
+>
+> **To avoid damage through electrostatic discharge, discharge yourself electrostatically before working with the device, e.g. by touching a metal radiator, and stay grounded while working with the device.**
+
+To start the **device firmware update (DFU) mode**, the housing must be unscrewed. You can use the screwdriver supplied for this purpose.
+
+> :warning: **ATTENTION!**
+>
+> **Be careful when lifting the lid and make sure that you do not tear the antenna cable off the board or the lid! Place the parts in front of you like shown in the following figure.**
+
+![Open MLS/100EV in DFU mode](https://ssv-embedded.de/bilder/github/mls100ev_open_update_mode.jpg)
+
+*Figure 18: Open MLS/100EV in DFU mode*
+
+## 5.3 Uploading New Firmware
+
+> :information_source: **Please note:**
+>
+> Before starting the upload, make sure to disable the Node-RED flow or terminate Node-RED. Otherwise, the COM port is blocked and cannot be used to transfer the firmware file.
+
+Connect the MLS/100EV to the workstation if it is not already connected.
+
+Now push and hold the **BE button**, push and release the **RST button** and then release the BE button. The status LED lights up permantly red to indicate the DFU mode.
+
+To transfer the firmware file, open a command line and enter the following command:
+
+```
+.\newtmgr -c serial image upload .\mls_blue_led_1.0.0.bin
+```
+> :information_source: **Please note:**
+>
+> In this example the firmware file is placed in the same directory as the `newtmgr.exe`. If this is not the case, you must enter the correct path to the storage location of the firmware file.
+
+The file transfer may take a while.
+
+After the successful upload, enter the following command or simply push the **RST button**, to exit the DFU mode:
+
+```
+.\newtmgr -c serial reset
+```
+
+The status LED starts flashing blue.
+
+> :information_source: **Please note:**
+>
+> If the LED does not start flashing blue after the reset, simply repeat the reset.
+
+To restore the MLS/100EV to the factory settings, simply repeat the steps from chapters 5.2 and 5.3 with the firmware file `mls_imu_1.0.0.bin`.
+
+# 6. TECHNICAL DATA
 
 + **Processor**
     + Arm Cortex M33 application MCU for AI-based sensor data analysis
@@ -310,13 +391,13 @@ Below the code cells, you will now see a diagram of your recorded machine data.
 + **Interfaces**
     + 1x USB-C interface for power supply and communication
     + 2x Internal mikroBUS™ connector for sensor module extensions
-    + 1x Internal Qwicc connector for I2C-based extensions
-    + 1x Internal debug connector plus DFU mode buttons
+    + 1x Internal qwiic connector for I2C-based extensions
+    + 1x Internal debug connector plus DFU mode buttons (RST and BE)
     + 1x Internal embedded LTE-M antenna
     ---
 + **Special functions**
-    + 1x Internal nanoSIM-card holder (Fourth Form Factor 4FF)
-    + Mobile Virtual Network Operator (MVNO) SIM-card with IoT data plan pre-installed (usable worldwide)
+    + 1x Internal nano SIM card holder (Fourth Form Factor 4FF)
+    + Mobile Virtual Network Operator (MVNO) SIM card with IoT data plan pre-installed (usable worldwide)
     + IoT protocol stack with (D)TLS support for Internet radio connections
     + Firmware updates and configuration settings via USB
     + Optional firmware variants for normal and testbed operation
@@ -329,7 +410,7 @@ Below the code cells, you will now see a diagram of your recorded machine data.
     + 3GPP AT commands according to TS 27.007 plus extensions
     ---
 + **Displays / control elements**
-    + 1x Status LED
+    + 1x Status LED (RGB)
     ---
 + **Electrical characteristics**
     + Supply voltage: 5 VDC
@@ -340,13 +421,19 @@ Below the code cells, you will now see a diagram of your recorded machine data.
     + Dimensions: 110 x 57 x 27 mm
     + Operating temperature: 0 - 70 °C
 
-## 5.1 Orientation of the Sensor Axes
+## 6.1 Orientation of the Sensor Axes
 
 ![Orientation of the MLS/100EV sensor axes](https://ssv-embedded.de/bilder/github/mls100ev_orientation_axes.png)
 
-*Figure 18: Orientation of the MLS/100EV sensor axes*
+*Figure 19: Orientation of the MLS/100EV sensor axes*
 
-## 5.2 Description of the CSV Data Set
+## 6.2 Board Layout
+
+![Board Layout of the MLS/100EV](https://ssv-embedded.de/bilder/github/mls100ev_igel.png)
+
+*Figure 20: Board Layout of the MLS/100EV*
+
+## 6.3 Description of the CSV Data Set
 
 | COLUMN | DESCRIPTION |
 | --- | --- |
@@ -375,7 +462,7 @@ Below the code cells, you will now see a diagram of your recorded machine data.
 
 *Table 1: Description of all 22 data elements of the MLS/100EV CSV data set*
 
-# 6. HELPFUL LITERATURE
+# 7. HELPFUL LITERATURE
 
 
 + [Node-RED](https://nodered.org)
@@ -384,6 +471,10 @@ Below the code cells, you will now see a diagram of your recorded machine data.
 
 + [Google Colab](https://colab.research.google.com/)
 
++ [Mikroe Click Boards™](https://www.mikroe.com/click-boards)
+
++ [Apache Newt Manager](https://mynewt.apache.org/latest/os/modules/devmgmt/newtmgr.html)
+
 ---
 
-*author: wbu // review: adi // 04-2025 // rev. 1.0*
+*author: wbu // review: adi // 05-2025 // rev. 1.1*
