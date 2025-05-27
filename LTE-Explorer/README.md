@@ -57,7 +57,7 @@ Connect the MLS/100EV to your workstation with the provided USB-C cable.
 
 ## 3.1 Installing the SSV/MLS LTE-M Explorer Firmware
 
-In the **[MLS/100EV GitHub repository](https://github.com/SSV-embedded/MLS100EV)** you can download the **[LTE-M explorer firmware file](https://github.com/SSV-embedded/MLS100EV/lte_explorer/mls_lte_1.0.0.bin)**.
+In the **[MLS/100EV GitHub repository](https://github.com/SSV-embedded/MLS100EV)** you can download the **[LTE-M explorer firmware file](mls_lte_1.0.0.bin)**.
 
 In the first steps document you can find a description on **[how to install a new firmware for the MLS/100EV](https://github.com/SSV-embedded/MLS100EV/tree/main?tab=readme-ov-file#5-firmware-update)**.
 
