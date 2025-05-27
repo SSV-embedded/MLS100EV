@@ -1,0 +1,168 @@
+[
+    {
+        "id": "a1a1d40d45992890",
+        "type": "tab",
+        "label": "SSV/MLS LTE Telemetry Data",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "1401aad51b9a57f0",
+        "type": "mqtt in",
+        "z": "a1a1d40d45992890",
+        "name": "",
+        "topic": "mls/imei",
+        "qos": "0",
+        "datatype": "utf8",
+        "broker": "fa24f169a9581cad",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 260,
+        "wires": [
+            [
+                "227fefa13fad7ff6"
+            ]
+        ]
+    },
+    {
+        "id": "c9960e90795f1bdc",
+        "type": "debug",
+        "z": "a1a1d40d45992890",
+        "name": "debug mqtt",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 630,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "5bf4e37fb4b1b36f",
+        "type": "file",
+        "z": "a1a1d40d45992890",
+        "name": "",
+        "filename": "mls100ev_lte_data.csv",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 660,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7ff1ee4099be938d",
+        "type": "serial in",
+        "z": "a1a1d40d45992890",
+        "name": "COM port",
+        "serial": "976f3630b8e90143",
+        "x": 140,
+        "y": 100,
+        "wires": [
+            [
+                "b7d1e7caf385b8d8"
+            ]
+        ]
+    },
+    {
+        "id": "b7d1e7caf385b8d8",
+        "type": "debug",
+        "z": "a1a1d40d45992890",
+        "name": "debug serial",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 350,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "227fefa13fad7ff6",
+        "type": "function",
+        "z": "a1a1d40d45992890",
+        "name": "time",
+        "func": "let time = new Date().toISOString();\nlet csvData = msg.payload;\n\nmsg.payload = `${time},${csvData}`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 260,
+        "wires": [
+            [
+                "c9960e90795f1bdc"
+            ]
+        ]
+    },
+    {
+        "id": "fa24f169a9581cad",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "broker.emqx.io",
+        "port": "8883",
+        "tls": "",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": true,
+        "protocolVersion": "4",
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "976f3630b8e90143",
+        "type": "serial-port",
+        "name": "",
+        "serialport": "COM6",
+        "serialbaud": "115200",
+        "databits": 8,
+        "parity": "none",
+        "stopbits": 1,
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": 10000
+    }
+]
