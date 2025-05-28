@@ -57,7 +57,7 @@ Connect the MLS/100EV to your workstation with the provided USB-C cable.
 
 ## 3.1 Installing the SSV/MLS LTE-M Explorer Firmware
 
-In the **[MLS/100EV GitHub repository](https://github.com/SSV-embedded/MLS100EV)** you can download the **[LTE-M explorer firmware file](mls_lte_1.0.0.bin)**.
+In the **[MLS/100EV GitHub repository](https://github.com/SSV-embedded/MLS100EV)** you can download the **[LTE-M explorer firmware file](https://github.com/SSV-embedded/MLS100EV/lte_explorer/mls_lte_1.0.0.bin)**.
 
 In the first steps document you can find a description on **[how to install a new firmware for the MLS/100EV](https://github.com/SSV-embedded/MLS100EV/tree/main?tab=readme-ov-file#5-firmware-update)**.
 
@@ -103,6 +103,10 @@ In the **Filename** text field you can change the filename and location.
 When everything is configured, click the `Deploy` button on the right in the header to save the changes.
 
 ## 3.3 Configuring the MQTT Node
+
+> :information_source: **IMPORTANT!**
+>
+> **The MLS/100EV sends its messages to a public MQTT broker. This means that anyone is able to receive the data and with the knowledge of the telemetry data details to locate the position of your device within the mobile network.**
 
 To configure the MQTT node, you first need to know the **IMEI** of the MLS/100EV. The IMEI can be found in the debug messages from the **debug serial** node.
 
@@ -220,24 +224,23 @@ Now execute the Python scripts in the notebook.
 >
 > If the filename of your CSV file is not `mls_lte_data.csv`, you must edit the filename in the Python code!  
 
-Below the code cells, you will now see a diagram with the values of **rsrp** (Reference Signal Received Power) and **rsrq_db** (Reference Signal Received in dB).
+Below the code cells, you will now see a diagram with the values of **rsrp_dbm** (Reference Signal Received Power in dBm).
 
-![Diagram with the values of rsrp and rsrq_db](https://ssv-embedded.de/bilder/github/colab_diagram_lte_signal.png)
+![Diagram with the values of rsrp_dbm](https://ssv-embedded.de/bilder/github/colab_diagram_lte_signal.png)
 
-*Figure 11: Diagram with the values of rsrp and rsrq_db*
+*Figure 11: Diagram with the values of rsrp_dbm*
 
 ### 4.2.1 Meaning of the Values
 
-**Signal strength (RSRP)**
+| RSRP (dBm) | Signal Quality |
+| ---:| --- |
+| **> -80 dBm**	| Excellent |
+| **-80 to -90 dBm** | Good |
+| **-90 to -100 dBm** | Fair |
+| **-100 to -110 dBm** | Poor |
+| **< -110 dBm** | Very poor / unusable |
 
-+ The higher (less negative) the RSRP value in dBm, the stronger the radio signal.
-+ Important for range and capacity planning: Areas with -100 dBm and worse are usually considered to be the edge of the radio cell and only provide low data rates.
-
-**Signal quality (RSRQ)**
-
-+ Includes interference levels and extraneous signals (RSSI).
-+ A good RSRP value can still have a poor RSRQ due to high noise or strong interference.
-+ Essential for predicting real user experience (e.g. stable downloads).
+*Table 1: RSRP values correspond to signal quality*
 
 ### 4.2.2 Information about the Used Cell Tower
 
@@ -291,7 +294,7 @@ In the following table, the individual data points of the LTE-M telemetry data s
 | **periodic_tau** | see `periodic_tau_ext`. |
 | **ping** | Monotonically increasing counter, increases with each status message. |
 
-*Table 1: Description of all data points of the MLS/100EV LTE-M telemetry data set*
+*Table 2: Description of all data points of the MLS/100EV LTE-M telemetry data set*
 
 # 6. DESCRIPTION OF THE STATUS LED
 
@@ -302,7 +305,7 @@ In the following table, the individual data points of the LTE-M telemetry data s
 | **Lights up permantly red** | The connection to the MQTT broker could not be established. |
 | **Flashes blue** | Data is being sent to the MQTT broker. |
 
-*Table 2: Description of the status LED*
+*Table 3: Description of the status LED*
 
 # 7. HELPFUL LITERATURE
 
@@ -316,4 +319,4 @@ In the following table, the individual data points of the LTE-M telemetry data s
 
 ---
 
-*author: wbu // review: adi // 05-2025 // rev. 1.0*
+*author: wbu // review: adi // 05-2025 // rev. 1.1*
