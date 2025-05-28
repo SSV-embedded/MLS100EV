@@ -226,7 +226,7 @@ Now execute the Python scripts in the notebook.
 
 Below the code cells, you will now see a diagram with the values of **rsrp_dbm** (Reference Signal Received Power in dBm).
 
-![Diagram with the values of rsrp_dbm](https://ssv-embedded.de/bilder/github/colab_diagram_lte_signal.png)
+![Diagram with the values of rsrp_dbm]()
 
 *Figure 11: Diagram with the values of rsrp_dbm*
 
