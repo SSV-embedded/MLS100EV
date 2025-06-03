@@ -430,7 +430,7 @@ To restore the MLS/100EV to the factory settings, simply repeat the steps from c
 
 ## 6.2 Board Layout
 
-![Board layout of the MLS/100EV](https://ssv-embedded.de/bilder/github/mls100ev_igel.png)
+![Board layout of the MLS/100EV](https://ssv-embedded.de/bilder/github/)
 
 *Figure 20: Board Layout of the MLS/100EV*
 
@@ -504,4 +504,4 @@ To restore the MLS/100EV to the factory settings, simply repeat the steps from c
 
 ---
 
-*author: wbu // review: adi // 05-2025 // rev. 1.2*
+*author: wbu // review: ssc // 06-2025 // rev. 1.2*
