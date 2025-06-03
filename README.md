@@ -390,12 +390,13 @@ To restore the MLS/100EV to the factory settings, simply repeat the steps from c
     ---
 + **Interfaces**
     + 1x USB-C interface for power supply and communication
-    + 2x Internal mikroBUS™ connector for sensor module extensions
+    + 2x Internal mikroBUS™ socket for sensor module extensions
     + 1x Internal qwiic connector for I2C-based extensions
     + 1x Internal debug connector plus DFU mode buttons (RST and BE)
     + 1x Internal embedded LTE-M antenna
     ---
 + **Special functions**
+    + 1x LM75A temperature sensor
     + 1x Internal nano SIM card holder (Fourth Form Factor 4FF)
     + Mobile Virtual Network Operator (MVNO) SIM card with IoT data plan pre-installed (usable worldwide)
     + IoT protocol stack with (D)TLS support for Internet radio connections
@@ -429,11 +430,37 @@ To restore the MLS/100EV to the factory settings, simply repeat the steps from c
 
 ## 6.2 Board Layout
 
-![Board Layout of the MLS/100EV](https://ssv-embedded.de/bilder/github/mls100ev_igel.png)
+![Board layout of the MLS/100EV](https://ssv-embedded.de/bilder/github/mls100ev_igel.png)
 
 *Figure 20: Board Layout of the MLS/100EV*
 
-## 6.3 Description of the CSV Data Set
+## 6.3 Block Diagram
+
+![Block diagram of the MLS/100EV](https://ssv-embedded.de/bilder/github/mls100ev_block.png)
+
+*Figure 21: Block diagram of the MLS/100EV*
+
+## 6.4 Pinouts
+
+### 6.4.1 mikroBUS™ Socket
+
+![Pinout mikroBUS™ socket](https://ssv-embedded.de/bilder/github/mls100ev_pinout_mikrobus.png)
+
+*Figure 22: Pinout mikroBUS™ socket*
+
+### 6.4.2 qwiic Connector
+
+![Pinout qwiic connector](https://ssv-embedded.de/bilder/github/mls100ev_pinout_qwiic.png)
+
+*Figure 23: Pinout qwiic connector*
+
+### 6.4.3 Debug Connector
+
+![Pinout debug connector](https://ssv-embedded.de/bilder/github/mls100ev_pinout_debug.png)
+
+*Figure 24: Pinout debug connector*
+
+## 6.5 Description of the CSV Data Set
 
 | COLUMN | DESCRIPTION |
 | --- | --- |
@@ -477,4 +504,4 @@ To restore the MLS/100EV to the factory settings, simply repeat the steps from c
 
 ---
 
-*author: wbu // review: adi // 05-2025 // rev. 1.1*
+*author: wbu // review: adi // 05-2025 // rev. 1.2*
