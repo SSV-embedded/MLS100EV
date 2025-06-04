@@ -16,7 +16,7 @@ It also describes how to visualize and analyze the telemetry data with Google Co
 >
 > The description in this document refers to a workstation running on Windows with Node-RED installed.
 
-![Application example for the MLS/100EV](https://ssv-embedded.de/bilder/github/mls100ev_lte_overview.png)
+![Application example for the MLS/100EV](assets/mls100ev_lte_overview.png)
 
 *Figure 1: Application example for the MLS/100EV*
 
@@ -80,7 +80,7 @@ As the MLS/100EV automatically connects to the MQTT broker, the **status LED sho
 
 Start Node-RED on your workstation and import the **[SSV/MLS LTE-M telemetry data flow](lte_csv_data_logger_flow.json)**. You will find this flow in the same repository as this document.
 
-![Imported SSV/MLS LTE-M telemetry data flow](https://ssv-embedded.de/bilder/github/nodered_lte_flow.png)
+![Imported SSV/MLS LTE-M telemetry data flow](assets/nodered_lte_flow.png)
 
 *Figure 2: Imported SSV/MLS LTE-M telemetry data flow*
 
@@ -96,7 +96,7 @@ In the **Filename** text field you can change the filename and location.
 >
 > The filename should be an absolute path, otherwise it will be relative to the working directory of the Node-RED process.
 
-![Properties of CSV file node](https://ssv-embedded.de/bilder/github/nodered_csv-node_edit.png)
+![Properties of CSV file node](assets/nodered_csv-node_edit.png)
 
 *Figure 3: Properties of the CSV file node*
 
@@ -104,15 +104,11 @@ When everything is configured, click the `Deploy` button on the right in the hea
 
 ## 3.3 Configuring the MQTT Node
 
-> :information_source: **IMPORTANT!**
->
-> **The MLS/100EV sends its messages to a public MQTT broker. This means that anyone is able to receive the data and with the knowledge of the telemetry data details to locate the position of your device within the mobile network.**
-
 To configure the MQTT node, you first need to know the **IMEI** of the MLS/100EV. The IMEI can be found in the debug messages from the **debug serial** node.
 
 To receive the debug messages, the **COM port** node must be configured.
 
-Therefore double click the **COM port** node to open its properties dialog and click the **pencil icon** ![pencil button](https://ssv-embedded.de/bilder/github/nodered_but_pencil.png) to edit the serial port settings.
+Therefore double click the **COM port** node to open its properties dialog and click the **pencil icon** ![pencil button](assets/nodered_but_pencil.png) to edit the serial port settings.
 
 > :information_source: **Please note:**
 >
@@ -128,29 +124,29 @@ Enter the following settings:
 
 Click the `Update` button at the top and then the `Done` button to close the node configuration.
 
-![Properties of COM port node](https://ssv-embedded.de/bilder/github/nodered_com-port-node_edit_edit.png)
+![Properties of COM port node](assets/nodered_com-port-node_edit_edit.png)
 
 *Figure 4: Properties of the COM port node*
 
-Now click the **debug icon** ![debug button](https://ssv-embedded.de/bilder/github/nodered_but_debug.png) at the top of the sidebar to open the debug window. Please wait up to **2 minutes** until you see the first message in the debug window.
+Now click the **debug icon** ![debug button](assets/nodered_but_debug.png) at the top of the sidebar to open the debug window. Please wait up to **2 minutes** until you see the first message in the debug window.
 
 > :information_source: **Please note:**
 >
 > If another flow also uses the COM port of the MLS/100EV (e.g. the SSV/MLS data logger flow), this can lead to unexpected results. We therefore recommend disabling the other flows. To do this, right-click on the corresponding tab of the flow and click on **Disable flow**.
 > 
-> ![Disbale a flow](https://ssv-embedded.de/bilder/github/nodered_disable_flow.png)
+> ![Disbale a flow](assets/nodered_disable_flow.png)
 > 
 > *Figure 5: Disbale a flow*
 
 Copy the IMEI; it is the **second number in the message** that comes directly after the timestamp.
 
-![Debug window with incoming data](https://ssv-embedded.de/bilder/github/nodered_lte_copy_imei.png)
+![Debug window with incoming data](assets/nodered_lte_copy_imei.png)
 
 *Figure 6: Debug window with incoming data*
 
 Now double click the **mls/imei** node to open its properties dialog, enter the IMEI in the **Topic text field** and click the `Done` button.
 
-![Properties of MQTT node](https://ssv-embedded.de/bilder/github/nodered_mqtt_imei.png)
+![Properties of MQTT node](assets/nodered_mqtt_imei.png)
 
 *Figure 7: Properties of the MQTT node*
 
@@ -158,7 +154,7 @@ When everything is configured, click the `Deploy` button.
 
 The MQTT node receives now the LTE-M telemetry data of the MLS/100EV at **2-minutes intervals** from the MQTT broker. The incoming data can be seen in the debug window.
 
-![Debug window with incoming LTE-M data](https://ssv-embedded.de/bilder/github/nodered_debug_lte_data.png)
+![Debug window with incoming LTE-M data](assets/nodered_debug_lte_data.png)
 
 *Figure 8: Debug window with incoming LTE-M data*
 
@@ -170,7 +166,7 @@ The MQTT node receives now the LTE-M telemetry data of the MLS/100EV at **2-minu
 
 To start recording the data in the CSV file, draw a wire from the **time node** to the **CSV node** like shown in the following figure and click the `Deploy` button. 
 
-![Connection between time node and CSV node](https://ssv-embedded.de/bilder/github/nodered_start_capture.png)
+![Connection between time node and CSV node](assets/nodered_start_capture.png)
 
 *Figure 9: Connection between time node and CSV node*
 
@@ -180,7 +176,7 @@ To stop recording the data in the CSV file, select the wire between the **time n
 
 Now open the CSV file to make sure the data was recorded. It should look like in the following figure.
 
-![CSV file with recorded LTE-M telemetry data](https://ssv-embedded.de/bilder/github/csv_lte_data.png)
+![CSV file with recorded LTE-M telemetry data](assets/csv_lte_data.png)
 
 *Figure 10: CSV file with recorded LTE-M telemetry data*
 
@@ -224,23 +220,24 @@ Now execute the Python scripts in the notebook.
 >
 > If the filename of your CSV file is not `mls_lte_data.csv`, you must edit the filename in the Python code!  
 
-Below the code cells, you will now see a diagram with the values of **rsrp_dbm** (Reference Signal Received Power in dBm).
+Below the code cells, you will now see a diagram with the values of **rsrp** (Reference Signal Received Power) and **rsrq_db** (Reference Signal Received in dB).
 
-![Diagram with the values of rsrp_dbm](https://www.ssv-embedded.de/bilder/github/colab_diagram_lte_signal.png)
+![Diagram with the values of rsrp and rsrq_db](assets/colab_diagram_lte_signal.png)
 
-*Figure 11: Diagram with the values of rsrp_dbm*
+*Figure 11: Diagram with the values of rsrp and rsrq_db*
 
 ### 4.2.1 Meaning of the Values
 
-| RSRP (dBm) | Signal Quality |
-| ---:| --- |
-| **> -80 dBm**	| Excellent |
-| **-80 to -90 dBm** | Good |
-| **-90 to -100 dBm** | Fair |
-| **-100 to -110 dBm** | Poor |
-| **< -110 dBm** | Very poor / unusable |
+**Signal strength (RSRP)**
 
-*Table 1: RSRP values correspond to signal quality*
++ The higher (less negative) the RSRP value in dBm, the stronger the radio signal.
++ Important for range and capacity planning: Areas with -100 dBm and worse are usually considered to be the edge of the radio cell and only provide low data rates.
+
+**Signal quality (RSRQ)**
+
++ Includes interference levels and extraneous signals (RSSI).
++ A good RSRP value can still have a poor RSRQ due to high noise or strong interference.
++ Essential for predicting real user experience (e.g. stable downloads).
 
 ### 4.2.2 Information about the Used Cell Tower
 
@@ -256,11 +253,11 @@ Go to **https://www.opencellid.org** and enter the following data points in the 
 
 The following figure shows where you can find the correct data points in the CSV file:
 
-![Data points for Open Cell ID in the CSV file](https://ssv-embedded.de/bilder/github/csv_opencellid.png)
+![Data points for Open Cell ID in the CSV file](assets/csv_opencellid.png)
 
 *Figure 12: Data points for Open Cell ID in the CSV file*
 
-![Map on Open Cell ID](https://ssv-embedded.de/bilder/github/mls100ev_map_opencellid.png)
+![Map on Open Cell ID](assets/mls100ev_map_opencellid.png)
 
 *Figure 13: Map on Open Cell ID with cell tower information*
 
@@ -294,7 +291,7 @@ In the following table, the individual data points of the LTE-M telemetry data s
 | **periodic_tau** | see `periodic_tau_ext`. |
 | **ping** | Monotonically increasing counter, increases with each status message. |
 
-*Table 2: Description of all data points of the MLS/100EV LTE-M telemetry data set*
+*Table 1: Description of all data points of the MLS/100EV LTE-M telemetry data set*
 
 # 6. DESCRIPTION OF THE STATUS LED
 
@@ -305,7 +302,7 @@ In the following table, the individual data points of the LTE-M telemetry data s
 | **Lights up permantly red** | The connection to the MQTT broker could not be established. |
 | **Flashes blue** | Data is being sent to the MQTT broker. |
 
-*Table 3: Description of the status LED*
+*Table 2: Description of the status LED*
 
 # 7. HELPFUL LITERATURE
 
@@ -319,4 +316,4 @@ In the following table, the individual data points of the LTE-M telemetry data s
 
 ---
 
-*author: wbu // review: adi // 05-2025 // rev. 1.1*
+*author: wbu // review: adi // 05-2025 // rev. 1.0*
