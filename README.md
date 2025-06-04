@@ -8,7 +8,7 @@ This document describes the first steps for using your new soft sensor evaluatio
 >
 > The description in this document refers to a workstation running on Windows.
 
-![Application example for the MLS/100EV](https://ssv-embedded.de/bilder/github/mls100ev_overview.png)
+![Application example for the MLS/100EV](assets/mls100ev_overview.png)
 
 *Figure 1: Application example for the MLS/100EV*
 
@@ -79,7 +79,7 @@ Open Node-RED, click the **menu icon** in the top right corner and click **Manag
 
 Click on the **Install** tab in the palette dialog and enter **dashboard** in the search bar.
 
-![Palette search results](https://ssv-embedded.de/bilder/github/nodered_palette_install_dashboard.png)
+![Palette search results](assets/nodered_palette_install_dashboard.png)
 
 *Figure 2: Palette search results*
 
@@ -110,7 +110,7 @@ Open Node-RED, click the **menu icon** in the top right corner and click **Manag
 
 Click on the **Install** tab in the palette dialog and enter **serial** in the search bar.
 
-![Palette search results](https://ssv-embedded.de/bilder/github/nodered_palette_search.png)
+![Palette search results](assets/nodered_palette_search.png)
 
 *Figure 3: Palette search results*
 
@@ -136,13 +136,13 @@ To record the data coming from the MLS/100EV, the **[SSV/MLS CSV Data Logger](ml
 
 Download the flow to the workstation. Then go to Node-RED and click the **menu icon** in the top right corner and click **Import**. In the next dialog select the SSV/MLS CSV Data Logger flow and click the `Import` button at the bottom.
 
-![Importing flow](https://ssv-embedded.de/bilder/github/nodered_import_flow.png)
+![Importing flow](assets/nodered_import_flow.png)
 
 *Figure 4: Importing flow*
 
 The **SSV/MLS CSV Data Logger** flow should appear on the workspace. If the workspace is still empty, click on the corresponding tab at the top of the workspace to see the new flow.
 
-![Imported SSV/MLS CSV data logger flow](https://ssv-embedded.de/bilder/github/nodered_flow.png)
+![Imported SSV/MLS CSV data logger flow](assets/nodered_flow.png)
 
 *Figure 5: Imported SSV/MLS CSV data logger flow*
 
@@ -154,7 +154,7 @@ The **SSV/MLS CSV Data Logger** flow should appear on the workspace. If the work
 
 To receive data from the MLS/100EV, the **Serial In MLS100EV** node of the flow must be configured.
 
-Therefore double click the **Serial In MLS100EV** node to open its properties dialog and click the **pencil icon** ![pencil button](https://ssv-embedded.de/bilder/github/nodered_but_pencil.png) to edit the serial port settings.
+Therefore double click the **Serial In MLS100EV** node to open its properties dialog and click the **pencil icon** ![pencil button](assets/nodered_but_pencil.png) to edit the serial port settings.
 
 Enter the following settings:
 
@@ -166,7 +166,7 @@ Enter the following settings:
 
 Click the `Update` button at the top and then the `Done` button to close the node configuration.
 
-![Properties of serialport node](https://ssv-embedded.de/bilder/github/nodered_serialport-node_edit_edit.png)
+![Properties of serialport node](assets/nodered_serialport-node_edit_edit.png)
 
 *Figure 6: Properties of the serialport node*
 
@@ -182,7 +182,7 @@ In the **Filename** text field you can change the filename and location.
 >
 > The filename should be an absolute path, otherwise it will be relative to the working directory of the Node-RED process.
 
-![Properties of CSV file node](https://ssv-embedded.de/bilder/github/nodered_csv-node_edit.png)
+![Properties of CSV file node](assets/nodered_csv-node_edit.png)
 
 *Figure 7: Properties of the CSV file node*
 
@@ -190,23 +190,23 @@ When everything is configured, click the `Deploy` button on the right in the hea
 
 ## 3.6 Testing the Connection
 
-To test the connection between Node-RED and the MLS/100EV, click the **debug icon** ![debug button](https://ssv-embedded.de/bilder/github/nodered_but_debug.png) at the top of the sidebar to open the debug window. You should now see the incoming data in the debug window.
+To test the connection between Node-RED and the MLS/100EV, click the **debug icon** ![debug button](assets/nodered_but_debug.png) at the top of the sidebar to open the debug window. You should now see the incoming data in the debug window.
 
-![Debug window with incoming data](https://ssv-embedded.de/bilder/github/nodered_test_debug.png)
+![Debug window with incoming data](assets/nodered_test_debug.png)
 
 *Figure 8: Debug window with incoming data*
 
 ### 3.6.1 View Data in Dashboard
 
-Click the **arrow down icon** ![arrow down button](https://ssv-embedded.de/bilder/github/nodered_but_arrow_down.png) in the sidebar and select **Dashboard**.
+Click the **arrow down icon** ![arrow down button](assets/nodered_but_arrow_down.png) in the sidebar and select **Dashboard**.
 
-![Sidebar menu](https://ssv-embedded.de/bilder/github/nodered_sidebar_menu_dashboard.png)
+![Sidebar menu](assets/nodered_sidebar_menu_dashboard.png)
 
 *Figure 9: Sidebar menu*
 
-Then click the **external link icon** ![external link button](https://ssv-embedded.de/bilder/github/nodered_but_external.png). This opens a new browser tab with the Node-RED dashboard, which displays the live data from the MLS/100EV.
+Then click the **external link icon** ![external link button](assets/nodered_but_external.png). This opens a new browser tab with the Node-RED dashboard, which displays the live data from the MLS/100EV.
 
-![Node-RED dashboard with incoming data](https://ssv-embedded.de/bilder/github/nodered_dashboard_diagram.png)
+![Node-RED dashboard with incoming data](assets/nodered_dashboard_diagram.png)
 
 *Figure 10: Node-RED dashboard with incoming data*
 
@@ -214,7 +214,7 @@ Then click the **external link icon** ![external link button](https://ssv-embedd
 
 To start recording the data in the CSV file, draw a wire from the **trim node** to the **CSV node** like shown in figure 11 and click the `Deploy` button. 
 
-![Connection between trim node and CSV node](https://ssv-embedded.de/bilder/github/nodered_csv-node_wired.png)
+![Connection between trim node and CSV node](assets/nodered_csv-node_wired.png)
 
 *Figure 11: Connection between trim node and CSV node*
 
@@ -224,7 +224,7 @@ To stop recording the data in the CSV file, select the wire between the **trim n
 
 Now open the CSV file to make sure the data was recorded. It should look like in figure 12.
 
-![CSV file with recorded data](https://ssv-embedded.de/bilder/github/csv.png)
+![CSV file with recorded data](assets/csv.png)
 
 *Figure 12: CSV file with recorded data*
 
@@ -262,17 +262,17 @@ You will also need the **[analyze.ipynb](analyze.ipynb)** Python notebook, which
 
 Log in to Colab, click in the **Open notebook** window on **Upload** and upload `analyze.ipynb`.
 
-![Colab start window](https://ssv-embedded.de/bilder/github/colab_new.png)
+![Colab start window](assets/colab_new.png)
 
 *Figure 13: Colab "Open notebook" window*
 
-![Colab analyze notebook](https://ssv-embedded.de/bilder/github/colab_analyze_notebook.png)
+![Colab analyze notebook](assets/colab_analyze_notebook.png)
 
 *Figure 14: Analyze Python notebook*
 
 Click the **file icon** on the left to open the file explorer. Make a right-click in the file explorer below the **sample_data** entry, click **Upload** and upload your CSV file, e.g. `mls100ev_data.csv`.
 
-![Upload the CSV file to Colab](https://ssv-embedded.de/bilder/github/colab_upload.png)
+![Upload the CSV file to Colab](assets/colab_upload.png)
 
 *Figure 15: Upload the CSV file to Colab*
 
@@ -284,7 +284,7 @@ You can do this for each code cell in turn by clicking the **play button** to th
 >
 > You can execute all code cells at once by clicking on **Runtime** in the menu bar and then clicking **Run all**. You can also use the shortcut `Ctrl` + `F9`.
 
-![Run all code cells](https://ssv-embedded.de/bilder/github/colab_run_all.png)
+![Run all code cells](assets/colab_run_all.png)
 
 *Figure 16: Run all code cells*
 
@@ -294,7 +294,7 @@ You can do this for each code cell in turn by clicking the **play button** to th
 
 Below the code cells, you will now see a diagram of your recorded machine data.
 
-![Diagram of the recorded data](https://ssv-embedded.de/bilder/github/colab_diagram.png)
+![Diagram of the recorded data](assets/colab_diagram.png)
 
 *Figure 17: Diagram of the recorded data*
 
@@ -344,7 +344,7 @@ To start the **device firmware update (DFU) mode**, the housing must be unscrewe
 >
 > **Be careful when lifting the lid and make sure that you do not tear the antenna cable off the board or the lid! Place the parts in front of you like shown in the following figure.**
 
-![Open MLS/100EV in DFU mode](https://ssv-embedded.de/bilder/github/mls100ev_open_update_mode.jpg)
+![Open MLS/100EV in DFU mode](assets/mls100ev_open_update_mode.jpg)
 
 *Figure 18: Open MLS/100EV in DFU mode*
 
@@ -428,19 +428,19 @@ To restore the MLS/100EV to the factory settings, simply repeat the steps from c
 
 ## 6.1 Orientation of the Sensor Axes
 
-![Orientation of the MLS/100EV sensor axes](https://ssv-embedded.de/bilder/github/mls100ev_orientation_axes.png)
+![Orientation of the MLS/100EV sensor axes](assets/mls100ev_orientation_axes.png)
 
 *Figure 19: Orientation of the MLS/100EV sensor axes*
 
 ## 6.2 Board Layout
 
-![Board layout of the MLS/100EV](https://ssv-embedded.de/bilder/github/mls100ev_board_layout.png)
+![Board layout of the MLS/100EV](assets/mls100ev_board_layout.png)
 
 *Figure 20: Board Layout of the MLS/100EV*
 
 ## 6.3 Block Diagram
 
-![Block diagram of the MLS/100EV](https://ssv-embedded.de/bilder/github/mls100ev_block.png)
+![Block diagram of the MLS/100EV](assets/mls100ev_block.png)
 
 *Figure 21: Block diagram of the MLS/100EV*
 
@@ -448,19 +448,19 @@ To restore the MLS/100EV to the factory settings, simply repeat the steps from c
 
 ### 6.4.1 mikroBUS™ Socket
 
-![Pinout mikroBUS™ socket](https://ssv-embedded.de/bilder/github/mls100ev_pinout_mikrobus.png)
+![Pinout mikroBUS™ socket](assets/mls100ev_pinout_mikrobus.png)
 
 *Figure 22: Pinout mikroBUS™ socket*
 
 ### 6.4.2 qwiic Connector
 
-![Pinout qwiic connector](https://ssv-embedded.de/bilder/github/mls100ev_pinout_qwiic.png)
+![Pinout qwiic connector](assets/mls100ev_pinout_qwiic.png)
 
 *Figure 23: Pinout qwiic connector*
 
 ### 6.4.3 Debug Connector
 
-![Pinout debug connector](https://ssv-embedded.de/bilder/github/mls100ev_pinout_debug.png)
+![Pinout debug connector](assets/mls100ev_pinout_debug.png)
 
 *Figure 24: Pinout debug connector*
 
