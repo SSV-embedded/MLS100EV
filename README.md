@@ -308,6 +308,10 @@ For the following description we will use the [`mls_blue_led_1.0.0.bin`](mls_blu
 >
 > The ex-factory firmware file of the MLS/100EV is called [`mls_imu_1.0.0.bin`](mls_imu_1.0.0.bin).
 
+## 5.1 Installing a Firmware Update Tool
+
+mcuboot or newtmgr
+
 ## 5.1 Installing the Apache Newt Manager
 
 To load a new firmware into the MLS/100EV, the command line tool **Newt Manager** from Apache is needed. Here you can **[download Newt Manager for Windows](https://dlcdn.apache.org/mynewt/apache-mynewt-1.13.0/apache-mynewt-newtmgr-bin-windows-1.13.0.tgz)**.
@@ -430,7 +434,7 @@ To restore the MLS/100EV to the factory settings, simply repeat the steps from c
 
 ## 6.2 Board Layout
 
-![Board layout of the MLS/100EV](https://ssv-embedded.de/bilder/github/mls100ev_igel.png)
+![Board layout of the MLS/100EV](https://ssv-embedded.de/bilder/github/mls100ev_board_layout.png)
 
 *Figure 20: Board Layout of the MLS/100EV*
 
