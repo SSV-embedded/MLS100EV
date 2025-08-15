@@ -143,7 +143,11 @@ In the third step choose following options:
 + **What type of data is in your timestamp column?**
     + Time elapsed in milliseconds
 + **Override timestamp difference?**
-    + Enter **1275 ms**. This value is important because the MLS/100EV sends its data at this interval. 
+    + Enter **1275 ms**.
+    
+> :information_source: **Please note:**
+> 
+> **The value of 1275 ms is important because the MLS/100EV sends its data at this interval.**
 
 Now click on the **`Great, let's look at your values`** button to go to step 4.
 
