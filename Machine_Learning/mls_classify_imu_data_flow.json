@@ -1,0 +1,81 @@
+[
+    {
+        "id": "1bf63204afd6b579",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "9dc56ce52880399e",
+        "type": "edge-impulse-classify",
+        "z": "1bf63204afd6b579",
+        "name": "classify",
+        "path": "enter\\path\\to\\webassembly\\model\\node",
+        "x": 380,
+        "y": 80,
+        "wires": [
+            [
+                "58bbfef1841ee0b8"
+            ]
+        ]
+    },
+    {
+        "id": "b78ce494a7931ea7",
+        "type": "function",
+        "z": "1bf63204afd6b579",
+        "name": "rms",
+        "func": "// String in ein Array aufsplitten (Komma als Trennzeichen)\nlet values = msg.payload.split(',');\n\n// Überprüfen, ob genug Elemente vorhanden sind\nif (values.length >= 16) {\n    // Index: 1 (x_rms), 8 (y_rms), 15 (z_rms)\n    return { payload: [parseFloat(values[1]), parseFloat(values[8]), parseFloat(values[15])]};\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 250,
+        "y": 80,
+        "wires": [
+            [
+                "9dc56ce52880399e"
+            ]
+        ]
+    },
+    {
+        "id": "ef3509640744110a",
+        "type": "debug",
+        "z": "1bf63204afd6b579",
+        "name": "debug",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 630,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "58bbfef1841ee0b8",
+        "type": "function",
+        "z": "1bf63204afd6b579",
+        "name": "label",
+        "func": "if (msg.payload.results[0].value >= 0.7) {\n    return {payload: msg.payload.results[0]};\n} else if (msg.payload.results[1].value >= 0.7) {\n    return {payload: msg.payload.results[1]};\n} else if (msg.payload.results[2].value >= 0.7) {\n    return {payload: msg.payload.results[2]};\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 80,
+        "wires": [
+            [
+                "ef3509640744110a"
+            ]
+        ]
+    }
+]
